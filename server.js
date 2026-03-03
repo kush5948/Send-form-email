@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import SendEmail from './Controllers/EmailSend.js';
-
+import cors from 'cors';
 
 
 dotenv.config();
@@ -13,7 +13,11 @@ const SERVERPORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
+app.use(cors({
+    origin:"http://127.0.0.1:5501",
+    optionsSuccessStatus:200,
+    credentials:true
+}))
 
 
 
