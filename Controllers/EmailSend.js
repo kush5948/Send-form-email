@@ -5,9 +5,9 @@ const SendEmail = async (req, res) => {
 
 
     try {
-        const { name, email, phone, message } = req.body;
+        const { name, email, phone, inquiry, message } = req.body;
     
-        if (!name || !email || !phone || !message) {
+        if (!name || !email || !phone || !inquiry || !message) {
             return res.status(400).json({
                 success: false,
                 message: "All Fields are required"
@@ -18,9 +18,9 @@ const SendEmail = async (req, res) => {
     
         const formdata = {
             name: name.trim(),
-            name: name.trim(),
             email: email.trim(),
             phone: phone.trim(),
+            inquiry: inquiry.trim(),
             message: message.trim(),
         }
     
@@ -39,9 +39,11 @@ const SendEmail = async (req, res) => {
         })
 
         console.error("Error sending email controller:", error);
-        
     }    
 
 
 
 }
+
+
+export default SendEmail;

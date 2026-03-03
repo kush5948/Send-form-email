@@ -1,12 +1,16 @@
+
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+
+// const logo=fs.readFileSync(path.join(__dirname, "../assets/logo.png"))
+// const base64Logo=logo.toString("base64");
+
 const emailTemplate = (formData) => {
     return `    
-    <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>New Admission Enquiry</title>
-</head>
-
 <body style="margin:0; padding:0; background:#f4f4f8; font-family: 'Segoe UI', Arial, sans-serif;">
 
   <table width="100%" cellpadding="0" cellspacing="0" style="padding:40px 0;">
@@ -17,23 +21,29 @@ const emailTemplate = (formData) => {
         <table width="620" cellpadding="0" cellspacing="0"
                style="background:#ffffff; border-radius:18px; overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,0.08);">
 
-          <!-- Header (Matching Purple Theme) -->
+          <!-- Header -->
           <tr>
             <td style="background:linear-gradient(135deg, #7b3f8c, #a86bbf); padding:30px; text-align:center; color:#ffffff;">
+              
+              <!-- LOGO -->
+              <img src="cid:schoollogo"
+                   alt="KNSS Logo" 
+                   style="width:90px; display:block; margin:0 auto 15px auto;">
+
               <h2 style="margin:0; font-size:22px; font-weight:600;">
-                🎓 New ${formData.inquiry}  ${formData.inquiry==="feedback"?"feedback":"Enquiry"} 
+                ${formData.inquiry.toUpperCase()} ${formData.inquiry==="feedback"?"":"Inquiry"} 
               </h2>
+
               <p style="margin:8px 0 0; font-size:14px; opacity:0.9;">
-                A new parent has submitted an enquiry through the website.
+                A new ${formData.inquiry} has been submitted through the MMET Admission Portal.
               </p>
             </td>
           </tr>
-
+        
           <!-- Content -->
           <tr>
             <td style="padding:35px;">
 
-              <!-- Details Section -->
               <table width="100%" cellpadding="0" cellspacing="0"
                      style="background:#f7e9ef; border-radius:14px; padding:25px;">
 
@@ -63,7 +73,6 @@ const emailTemplate = (formData) => {
 
               </table>
 
-              <!-- Message Box -->
               <table width="100%" cellpadding="0" cellspacing="0"
                      style="margin-top:25px; background:#fff5f8; border-radius:14px; padding:20px; border:1px solid #f0d6df;">
                 <tr>
@@ -78,7 +87,6 @@ const emailTemplate = (formData) => {
                 </tr>
               </table>
 
-              <!-- Button -->
               <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:35px;">
                 <tr>
                   <td align="center">
@@ -99,7 +107,6 @@ const emailTemplate = (formData) => {
             </td>
           </tr>
 
-          <!-- Footer -->
           <tr>
             <td style="background:#fafafa; padding:18px; text-align:center; font-size:12px; color:#888;">
               Mannam Memorial Educational Trust – Admission Portal Notification
@@ -115,6 +122,8 @@ const emailTemplate = (formData) => {
   </table>
 
 </body>
-</html>
     `
 }
+
+
+export default emailTemplate;
