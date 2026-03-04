@@ -1,13 +1,23 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import SendEmail from './Controllers/EmailSend.js';
+import SendEmail from './controllers/EmailSend.js';
 import cors from 'cors';
-
-
+import { rateLimit } from 'express-rate-limit'
 dotenv.config();
 
 const app = express();
 const SERVERPORT = process.env.PORT || 3000;
+
+const limiter=rateLimit({
+    windowMs:5*60*1000,
+    max:5,
+    statusCode:429,
+    message:"Too many requests , Please try again later",
+    standardHeaders: true, 
+	legacyHeaders: false, 
+	ipv6Subnet: 60,
+})
+
 
 // Middleware
 app.use(express.json());
@@ -19,7 +29,7 @@ app.use(cors({
     credentials:true
 }))
 
-
+app.use(limiter)
 
 // // Function to add data to Excel file
 // async function addToExcelFile(formData) {
