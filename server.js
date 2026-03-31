@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 import SendEmail from './Controllers/EmailSend.js';
 import cors from 'cors';
 import { rateLimit } from 'express-rate-limit'
+import SendEmailSchool from './controllers/EmailSendSchool.js';
+import SendEmailTrust from './controllers/EmailSendTrust.js';
 dotenv.config();
 
 const app = express();
@@ -89,7 +91,14 @@ app.get('/', (_, res) => {
     res.send("API Server Running. Use POST /formsubmit to submit form data.");
 });
 
+
 app.post('/formsubmit', SendEmail);
+
+
+app.post('/formsubmit/mmetschool',SendEmailSchool);
+
+app.post('/formsubmit/trust',SendEmailTrust);
+
 
 
 app.listen(SERVERPORT, () => {

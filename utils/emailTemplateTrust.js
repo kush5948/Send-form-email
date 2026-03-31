@@ -1,9 +1,9 @@
 
 
 
-const emailTemplate = (formData) => {
+const emailTemplateTrust = (formData) => {
 
-    const inquirytypeDisplay =(type)=>{
+  const inquirytypeDisplay =(type)=>{
     if(type === "feedback"){
         return "Feedback"
     } else if(type === "general"){
@@ -15,6 +15,7 @@ const emailTemplate = (formData) => {
     }
 
   }
+
     return `    
 <body style="margin:0; padding:0; background:#f4f4f8; font-family: 'Segoe UI', Arial, sans-serif;">
 
@@ -30,14 +31,14 @@ const emailTemplate = (formData) => {
           <tr>
             <td style="background:linear-gradient(135deg, #7b3f8c, #a86bbf); padding:30px; text-align:center; color:#ffffff;">
               <div style="font-size:24px; font-weight:700; letter-spacing:0.3px; margin:0 0 16px 0; color: #ff5c2b;">
-                KNSS Vidyamandir English School
+                Mannam Memorial Educational Trust
               </div>
               <h2 style="margin:0; font-size:22px; font-weight:600;">
                 ${inquirytypeDisplay(formData.inquiry)}
               </h2>
 
               <p style="margin:8px 0 0; font-size:14px; opacity:0.9;">
-                A new ${inquirytypeDisplay(formData.inquiry)} has been submitted through the KNSS Vidyamandir Portal.
+                A new ${inquirytypeDisplay(formData.inquiry)} has been submitted through the Mannam Memorial Educational Trust Portal.
               </p>
             </td>
           </tr>
@@ -111,9 +112,9 @@ const emailTemplate = (formData) => {
 
           <tr>
             <td style="background:#fafafa; padding:18px; text-align:center; font-size:12px; color:#888;">
-              Knss Vidyamandir English School – Admission Portal Notification
+              Mannam Memorial Educational Trust –  Portal Notification
               <br><br>
-              © 2026 Knss Vidyamandir English School. All rights reserved.
+              © 2026  Mannam Memorial Educational Trust. All rights reserved.
             </td>
           </tr>
 
@@ -128,4 +129,4 @@ const emailTemplate = (formData) => {
 }
 
 
-export default emailTemplate;
+export default emailTemplateTrust;
