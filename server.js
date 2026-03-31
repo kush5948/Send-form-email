@@ -2,9 +2,9 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import { rateLimit } from 'express-rate-limit'
-import EmailSendTrust from './controllers/EmailSendTrust.js';
-import EmailSend from './controllers/EmailSend.js';
-import EmailSendSchool from './controllers/EmailSendSchool.js';
+import EmailSendTrust from './Controllers/EmailSendTrust.js';
+import EmailSend from './Controllers/EmailSend.js';
+import EmailSendSchool from './Controllers/EmailSendSchool.js';
 
 
 dotenv.config();
