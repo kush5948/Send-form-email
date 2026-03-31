@@ -1,13 +1,5 @@
 
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-
-// const logo=fs.readFileSync(path.join(__dirname, "../assets/logo.png"))
-// const base64Logo=logo.toString("base64");
 
 const emailTemplate = (formData) => {
     return `    
@@ -24,14 +16,11 @@ const emailTemplate = (formData) => {
           <!-- Header -->
           <tr>
             <td style="background:linear-gradient(135deg, #7b3f8c, #a86bbf); padding:30px; text-align:center; color:#ffffff;">
-              
-              <!-- LOGO -->
-              <img src="cid:schoollogo"
-                   alt="KNSS Logo" 
-                   style="width:90px; display:block; margin:0 auto 15px auto;">
-
+              <div style="font-size:24px; font-weight:700; letter-spacing:0.3px; margin:0 0 16px 0; color: #ff5c2b;">
+                KNSS Vidyamandir English School
+              </div>
               <h2 style="margin:0; font-size:22px; font-weight:600;">
-                ${formData.inquiry.toUpperCase()} ${formData.inquiry==="feedback"?"":"Inquiry"} 
+                ${formData.inquiry.toUpperCase()}  ${formData.inquiry==="feedback"?"":"Inquiry"} 
               </h2>
 
               <p style="margin:8px 0 0; font-size:14px; opacity:0.9;">

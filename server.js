@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import SendEmail from './controllers/EmailSend.js';
+import SendEmail from './Controllers/EmailSend.js';
 import cors from 'cors';
 import { rateLimit } from 'express-rate-limit'
 dotenv.config();
@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({
-    origin:"http://127.0.0.1:5501",
+    origin:"*",
     optionsSuccessStatus:200,
     credentials:true
 }))
@@ -86,7 +86,7 @@ app.use(limiter)
 
 
 app.get('/', (_, res) => {
-    res.send("API Server Running. Use POST /form to submit form data.");
+    res.send("API Server Running. Use POST /formsubmit to submit form data.");
 });
 
 app.post('/formsubmit', SendEmail);

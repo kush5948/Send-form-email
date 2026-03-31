@@ -1,52 +1,54 @@
-import nodemailer from 'nodemailer';
 import emailTemplate from '../utils/emailTemplate.js';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { Resend } from 'resend';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-// Function to get transporter (creates on demand with fresh env vars)
-function getTransporter() {
-    console.log('Creating transporter with credentials:');
-    console.log('Email User:', process.env.EMAIL_USER);
-    console.log('Email Service:', process.env.EMAIL_SERVICE);
-
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
-        throw new Error('EMAIL_USER and EMAIL_PASSWORD environment variables are required');
+function getResendClient() {
+    if (!process.env.RESEND_API_KEY) {
+        throw new Error('RESEND_API_KEY environment variable is required');
     }
 
-    return nodemailer.createTransport({
-        service: process.env.EMAIL_SERVICE || 'gmail',
-        auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASSWORD,
-        }
-    });
+    return new Resend(process.env.RESEND_API_KEY);
 }
 
+function getFromEmail() {
+    if (process.env.RESEND_FROM_EMAIL) {
+        return process.env.RESEND_FROM_EMAIL;
+    }
 
-// Function to send email
+    if (process.env.RESEND_FROM_DOMAIN) {
+        const address = `admission@${process.env.RESEND_FROM_DOMAIN}`;
+
+        if (process.env.RESEND_FROM_NAME) {
+            return `${process.env.RESEND_FROM_NAME} <${address}>`;
+        }
+
+        return address;
+    }
+
+    return process.env.EMAIL_USER;
+}
+
 async function initiateEmail(formData) {
     try {
-        const transporter = getTransporter();
+        const resend = getResendClient();
+        const fromEmail = getFromEmail();
 
-        const mailOptions = {
-            from: process.env.EMAIL_USER,
-            to: process.env.OWNER_EMAIL,
+        if (!fromEmail || !process.env.OWNER_EMAIL) {
+            throw new Error('Set OWNER_EMAIL and either RESEND_FROM_EMAIL, RESEND_FROM_DOMAIN, or EMAIL_USER in the environment');
+        }
+
+        const { data, error } = await resend.emails.send({
+            from: fromEmail,
+            to: [process.env.OWNER_EMAIL],
             subject: `New Form Submission from ${formData.name}`,
-            html: emailTemplate(formData),
-            attachments: [
-                {
-                    filename: 'logo1.jpg',
-                    path: path.join(__dirname, '../assets/logo1.jpg'),
-                    cid: 'schoollogo' // must match src="cid:schoollogo"
-                }
-            ]
-        };
+            html: emailTemplate(formData)
+        });
 
-        const result = await transporter.sendMail(mailOptions);
-        console.log('Email sent successfully:', result.messageId);
-        return result;
+        if (error) {
+            throw new Error(error.message || 'Failed to send email with Resend');
+        }
+
+        console.log('Email sent successfully:', data?.id);
+        return data;
     } catch (error) {
         console.error('Error in initiateEmail function:', error);
         throw error;
