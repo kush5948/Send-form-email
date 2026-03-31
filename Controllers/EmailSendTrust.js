@@ -1,7 +1,7 @@
 import initiateEmailTrust from "../libs/initiateEmailTrust.js";
 
 
-const SendEmailTrust = async (req, res) => {
+const EmailSendTrust = async (req, res) => {
 
 
     try {
@@ -46,4 +46,4 @@ const SendEmailTrust = async (req, res) => {
 }
 
 
-export default SendEmailTrust;
+export default EmailSendTrust;

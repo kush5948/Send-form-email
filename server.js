@@ -1,10 +1,12 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import SendEmail from './controllers/EmailSend.js';
 import cors from 'cors';
 import { rateLimit } from 'express-rate-limit'
-import SendEmailSchool from './controllers/EmailSendSchool.js';
-import SendEmailTrust from './controllers/EmailSendTrust.js';
+import EmailSendTrust from './controllers/EmailSendTrust.js';
+import EmailSend from './controllers/EmailSend.js';
+import EmailSendSchool from './controllers/EmailSendSchool.js';
+
+
 dotenv.config();
 
 const app = express();
@@ -92,12 +94,12 @@ app.get('/', (_, res) => {
 });
 
 
-app.post('/formsubmit', SendEmail);
+app.post('/formsubmit',EmailSend );
 
 
-app.post('/formsubmit/mmetschool',SendEmailSchool);
+app.post('/formsubmit/mmetschool',EmailSendSchool);
 
-app.post('/formsubmit/trust',SendEmailTrust);
+app.post('/formsubmit/trust', EmailSendTrust);
 
 
 

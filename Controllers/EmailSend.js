@@ -1,7 +1,7 @@
 import initiateEmail from "../libs/initiateEmail.js"
 
 
-const SendEmail = async (req, res) => {
+const EmailSend = async (req, res) => {
 
 
     try {
@@ -46,4 +46,4 @@ const SendEmail = async (req, res) => {
 }
 
 
-export default SendEmail;
+export default EmailSend;

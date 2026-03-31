@@ -1,7 +1,7 @@
 import initiateEmailSchool from "../libs/initiateEmailSchool.js";
 
 
-const SendEmailSchool = async (req, res) => {
+const EmailSendSchool = async (req, res) => {
 
 
     try {
@@ -46,4 +46,4 @@ const SendEmailSchool = async (req, res) => {
 }
 
 
-export default SendEmailSchool;
+export default EmailSendSchool;
