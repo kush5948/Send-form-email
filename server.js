@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import SendEmail from './Controllers/EmailSend.js';
+import SendEmail from './controllers/EmailSend.js';
 import cors from 'cors';
 import { rateLimit } from 'express-rate-limit'
 import SendEmailSchool from './controllers/EmailSendSchool.js';
