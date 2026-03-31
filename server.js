@@ -11,6 +11,22 @@ dotenv.config();
 
 const app = express();
 const SERVERPORT = process.env.PORT || 3000;
+const parsedTrustProxy = process.env.TRUST_PROXY;
+const TRUST_PROXY =
+    parsedTrustProxy === undefined
+        ? 1
+        : parsedTrustProxy === 'true'
+          ? true
+          : parsedTrustProxy === 'false'
+            ? false
+            : Number.isNaN(Number(parsedTrustProxy))
+              ? parsedTrustProxy
+              : Number(parsedTrustProxy);
+
+
+
+              
+app.set('trust proxy', TRUST_PROXY);
 
 const limiter=rateLimit({
     windowMs:5*60*1000,
